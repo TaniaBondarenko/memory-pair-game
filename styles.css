@@ -8,6 +8,10 @@ html {
   height: 100%;
 }
 
+.result {
+  color: beige;
+}
+
 .bg {
   background-image: url("images/dark_bg_moon.png");
   height: 100%;
@@ -16,62 +20,15 @@ html {
   background-size: cover;
 }
 
-.flipper {
-  padding-top: 35px;
-  padding-bottom: 35px;
-}
-
-.front,
-.back {
-  display: grid;
-  grid-template-columns: 135px 135px 135px 135px;
-  grid-template-rows: 135px 135px 135px 135px;
-  gap: 15px 15px;
-  justify-content: center;
-  align-content: center;
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  height: 540px;
+  width: 540px;
 }
 
 .front_img,
 .back_img {
   width: 135px;
   height: 135px;
-}
-
-/* entire container, keeps perspective */
-.flip_container {
-  perspective: 350px;
-}
-
-/* flip the pane when hovered */
-.front_img:hover,
-.front_img.hover {
-  transform: rotateY(180deg);
-  /*transform: rotateY(180deg)*/
-}
-
-/* flip speed goes here */
-.front_img {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  /*transform-origin: center right; like a book*/
-  /*transform: translateX(-100%);*/
-  position: relative;
-}
-
-/* hide back of pane during swap */
-.front,
-.back {
-  backface-visibility: hidden;
-  position: absolute;
-}
-
-/* front pane, placed above back */
-.front_img {
-  z-index: 2;
-  transform: rotateY(0deg);
-}
-
-/* back, initially hidden pane */
-.back_img {
-  transform: rotateY(180deg);
 }
