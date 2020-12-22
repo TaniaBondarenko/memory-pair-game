@@ -15,10 +15,8 @@ html {
 
 .result {
   color: beige;
-}
-
-.game_field {
-  perspective: 1000;
+  text-align: center;
+  font-family: cursive;
 }
 
 .bg {
@@ -29,23 +27,35 @@ html {
   background-size: cover;
 }
 
-.game_board {
-  display: flex;
-  flex-wrap: wrap;
-
-  height: 600px;
-  width: 600px;
-  gap: 20px 20px;
-  transform-style: preserve-3d;
-}
-
 .card_front,
 .glass {
-  width: 22%;
-  height: 22%;
+  width: 135px;
+  height: 135px;
+  margin: 5px;
 }
 
-.card_front .clicked {
-  transform: rotateY(180deg);
-  transition: 2s;
+.game_field {
+  max-width: 100%;
+  max-height: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  margin: auto;
+}
+
+.game_board {
+  perspective: 1000;
+  margin: 5px;
+  width: 600px;
+  height: 600px;
+  position: absolute;
+}
+
+/*FRONT*/
+.card_front {
+}
+
+/*BACK*/
+.card_front.clicked {
 }
