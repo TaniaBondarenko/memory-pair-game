@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body,
@@ -8,8 +9,16 @@ html {
   height: 100%;
 }
 
+.glass {
+  opacity: 0;
+}
+
 .result {
   color: beige;
+}
+
+.game_field {
+  perspective: 1000;
 }
 
 .bg {
@@ -20,15 +29,23 @@ html {
   background-size: cover;
 }
 
-.grid {
+.game_board {
   display: flex;
   flex-wrap: wrap;
-  height: 540px;
-  width: 540px;
+
+  height: 600px;
+  width: 600px;
+  gap: 20px 20px;
+  transform-style: preserve-3d;
 }
 
-.front_img,
-.back_img {
-  width: 135px;
-  height: 135px;
+.card_front,
+.glass {
+  width: 22%;
+  height: 22%;
+}
+
+.card_front .clicked {
+  transform: rotateY(180deg);
+  transition: 2s;
 }
