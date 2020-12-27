@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body,
@@ -8,8 +9,14 @@ html {
   height: 100%;
 }
 
+.glass {
+  opacity: 0;
+}
+
 .result {
   color: beige;
+  text-align: center;
+  font-family: cursive;
 }
 
 .bg {
@@ -20,15 +27,35 @@ html {
   background-size: cover;
 }
 
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  height: 540px;
-  width: 540px;
-}
-
-.front_img,
-.back_img {
+.card_front,
+.glass {
   width: 135px;
   height: 135px;
+  margin: 5px;
+}
+
+.game_field {
+  max-width: 100%;
+  max-height: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  margin: auto;
+}
+
+.game_board {
+  perspective: 1000;
+  margin: 5px;
+  width: 600px;
+  height: 600px;
+  position: absolute;
+}
+
+/*FRONT*/
+.card_front {
+}
+
+/*BACK*/
+.card_front.clicked {
 }
