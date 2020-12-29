@@ -1,5 +1,4 @@
-
-    const card_obj = [
+    const cardsBackArr = [
         {
             name: "bear",
             img: "images/bear.png"
@@ -64,87 +63,42 @@
             name: "snowball",
             img: "images/snowball.png"
         }
-    ];
+];
+window.addEventListener("load", createBoard);  
+//const cards = Array.from(document.querySelectorAll("div.card_inner"));
+let cardsFrontArr = Array.apply(this, Array(16)).map(el=> "images/front_card.png"); 
+let cardBoard = document.querySelector(".card_board");
 
-window.addEventListener("load", init);
-
-    const game_board = document.querySelector(".game_board");
-    let cardsChosen = [];
-    let cardsChosenId = [];
-    let cardsGuessed = [];
-    let attempts = 0;
-   
-function shuffle() {
-        for (i = card_obj.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * i);
-            k = card_obj[i];
-            card_obj[i] = card_obj[j];
-            card_obj[j] = k;
-        }
-    }
-        
 function createBoard() {
-    for (let i = 0; i < card_obj.length; i++) {
-        let cardFront = document.createElement("img");
-        cardFront.className = "card_front";
-        cardFront.setAttribute("data-id", i);
-        cardFront.src = "images/front_card.png";
-        game_board.appendChild(cardFront);
-        cardFront.addEventListener("click", flipCard);
+    for (let i = 0; i < 16; i++){
+        let cardInner = document.createElement("div");
+        cardInner.setAttribute("class", "card_inner");
+        cardInner.innerHTML = `<img src="${cardsFrontArr[i]}" class="card_face card_face_front alt=" ">
+            <img src="${cardsBackArr[i].img}" class="card_face card_face_back" alt=" " >`;
+        cardBoard.appendChild(cardInner);
+        
     }
 }
+
+
+    
+/*document.addEventListener("click", myFunction);
+
+function myFunction() {
+  document.querySelectorAll(".card_inner").forEach(element => {
+      element.classList.toggle("clicked");
+  });
+}*/
 
 function flipCard() {
-    let cardId = this.getAttribute("data-id");
-    cardsChosen.push(card_obj[cardId].name);
-    cardsChosenId.push(cardId);
-    this.setAttribute("src", card_obj[cardId].img);
-    this.classList.add(".clicked");
-    if (cardsChosen.length === 2) {
-        setTimeout(checkForMatch, 500);
-        }
-        
-    function checkForMatch() {
-            let cardsAll = document.querySelectorAll("img");
-            const firstCardId = cardsChosenId[0];
-            const secondCardId = cardsChosenId[1];
-        if ((cardsChosen[0] === cardsChosen[1])&&(firstCardId !== secondCardId) ){
-            cardsAll[firstCardId].setAttribute("src", "images/just-card.png");
-            cardsAll[firstCardId].setAttribute("class", "glass");
-            cardsAll[secondCardId].setAttribute("src", "images/just-card.png");
-            cardsAll[secondCardId].setAttribute("class", "glass");
-            cardsGuessed.push(cardsChosen);
-            attempts += 1;
-        } else  {
-            cardsAll[firstCardId].setAttribute("src", "images/front_card.png");
-            cardsAll[secondCardId].setAttribute("src", "images/front_card.png");
-            attempts += 1;
-        }
-
-        cardsChosen = [];
-        cardsChosenId = [];
-        removeClick();
-        showGameResult();
-    }
-    
-    function removeClick() {
-        let allClicked = document.getElementsByClassName(".clicked");
-        Array.from(allClicked).forEach((item) => item.classList.remove(".clicked"));
-    }
-    
-    function showGameResult() {
-        const resultDisplay = document.querySelector(".result");
-        resultDisplay.textContent = `Pairs guessed: ${cardsGuessed.length}`;
-        if (cardsGuessed.length === card_obj.length / 2) {
-            resultDisplay.textContent = `Good job! Your number of attempts ${attempts}`;
-            }
-    }
-
-        
-};
-
-function init() {
-    createBoard();
-    shuffle();
+  this.classList.toggle('is-flipped');
 }
+
+setTimeout(() => {
+    (Array.from(document.querySelectorAll(".card_inner")).forEach(card => card.addEventListener('click', flipCard)));
+}, 1000);
+
+
+
+
 
