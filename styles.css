@@ -45,7 +45,8 @@ body {
   transform-origin: center;
 }
 
-.card_face {
+.card_face_front,
+.card_face_back {
   position: absolute;
   width: 135px;
   height: 135px;
@@ -70,4 +71,9 @@ body {
   transform: rotateY(180deg);
   position: absolute;
   left: 0;
+}
+
+.card_inner.is-shown {
+  opacity: 0.5;
+  transform: rotateY(0deg);
 }
