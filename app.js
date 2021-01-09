@@ -22,10 +22,11 @@ window.addEventListener("load", createBoard);
 
 const CARDS_LENGTH = 16;
 let cardsFlipped;
-  let pairsOpened;
+let pairsOpened;
 let flipNum;
 let numOfAttempts;
 resetVariables();
+let cards;
 
 function resetVariables() {
   cardsFlipped = [];
@@ -35,6 +36,7 @@ function resetVariables() {
 };
 
 function createBoard() {
+  shuffle(CARDS_BACK_ARR); 
   let cardsFrontArr = Array.apply(this, Array(CARDS_LENGTH)).map(() => "images/front_card.png");
   let cardBoard = document.querySelector(".card_board");
     for (let i = 0; i < CARDS_LENGTH; i++){
@@ -44,46 +46,41 @@ function createBoard() {
             <img src="${CARDS_BACK_ARR[i]}" class="card_face_back" alt=" ">`;
         cardBoard.appendChild(cardInner);
         
-    }
-}
-
-function flipCard(e) {
-  numOfAttempts++;
-  //console.log(numOfAttempts);
-    const ELEMENT = e.target.parentElement;
-  cardsFlipped.push(ELEMENT);
-  if (!ELEMENT.classList.contains("is-shown")) {
-    ELEMENT.classList.add('is-flipped');
-    flipNum++;
-  } else {
-    flipNum;
   }
-  if (cardsFlipped.length === 2) {
-    isMatch();
-  }
-};
-
-
-
-function isMatch() {
-    let firstCard = cardsFlipped[0].lastElementChild.getAttribute("src");
-    let secondCard = cardsFlipped[1].lastElementChild.getAttribute("src");
-  if (firstCard === secondCard && cardsFlipped[0] !== cardsFlipped[1]) {
-    console.log("match");
-    pairsOpened++;
-    setTimeout(showImg, 500);
-    
-  }else {
-      console.log("oh, no");
-      setTimeout(removeFlip, 800);
-    }
-  wonGame();
+  cards = Array.from(document.querySelectorAll(".card_inner"));
+  
 }
-
 
 setTimeout(() => {
-    (Array.from(document.querySelectorAll(".card_inner")).forEach(card => card.addEventListener('click', flipCard)));
+    cards.forEach(card => card.addEventListener('click', flipCard));
 }, 500);
+
+function flipCard(e) {
+ 
+const CARD_INNER = e.target.parentElement;
+  if (!CARD_INNER.classList.contains("is-shown")) {
+    CARD_INNER.classList.add('is-flipped');
+    cardsFlipped.push(CARD_INNER);
+  } 
+  if (cardsFlipped.length === 2) {
+    isMatch();
+  } else {
+    cardsFlipped;
+  }
+}
+
+function isMatch() {
+  let firstCard = cardsFlipped[0].lastElementChild.getAttribute("src");
+  let secondCard = cardsFlipped[1].lastElementChild.getAttribute("src");
+  if (firstCard === secondCard && cardsFlipped[0] != cardsFlipped[1]) {
+    setTimeout(showImg, 500); 
+    pairsOpened++;
+  } 
+  else {
+    setTimeout(removeFlip, 800);
+  }
+  wonGame();
+}
 
 function removeFlip() {
   cardsFlipped.forEach(card => {
@@ -91,57 +88,47 @@ function removeFlip() {
     cardsFlipped = [];
       flipNum = 0;
   });
+   numOfAttempts++;
 }
 function showImg() {
   cardsFlipped.forEach(card => {
-    setTimeout(() => {
-      card.classList.add("is-shown");
-      
-    }, 600);
-  
+    card.classList.add("is-shown");
+    card.classList.remove("is-flipped");  })
     cardsFlipped = [];
     flipNum = 0;
-  });
- 
+  numOfAttempts++;
 }
 
 function wonGame() {
-  if (pairsOpened === CARDS_LENGTH/2) {
-    setTimeout(() => { alert(`You've found all the matches and used ${numOfAttempts/2} attempts.`) }, 1000);
-  setTimeout(resetGame,1200);
+  if (pairsOpened === CARDS_LENGTH / 2) {
+    setTimeout(() => {
+      if (window.confirm(`You've found all the matches and used ${numOfAttempts} attempts.\n Play one more game`)) {
+        document.location.reload();
+      } else {
+        resetVariables();
+        window.removeEventListener("load", createBoard);
+      };
+    }, 1000);
   } else {
     return;
   }
-}
-
-function resetGame() {
-  resetVariables();
-  window.removeEventListener("load", createBoard);
-  (Array.from(document.querySelectorAll(".card_inner"))).forEach(card => card.classList.remove("is-flipped"));
-  (Array.from(document.querySelectorAll(".card_inner"))).forEach(card => card.classList.remove("is-shown"));
- 
-};
+  }
 
 
 function shuffle(arr) {
   var currentIndex = arr.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle…
   while (currentIndex!==0) {
-
-    // Pick a remaining element…
     randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-    // And swap it with the current element.
     temporaryValue = arr[currentIndex];
     arr[currentIndex] = arr[randomIndex];
     arr[randomIndex] = temporaryValue;
   }
 }
-// theme button
-let theme = document.querySelector(".theme");
-theme.addEventListener("click", changeTheme);
-function changeTheme() {
+
+let mode = document.querySelector(".mode");
+mode.addEventListener("click", changeMode);
+function changeMode() {
   let bodyBack = document.querySelector(".back_div");
   bodyBack.classList.toggle("switch");
 }
