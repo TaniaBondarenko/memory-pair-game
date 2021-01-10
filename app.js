@@ -129,6 +129,6 @@ function shuffle(arr) {
 let mode = document.querySelector(".mode");
 mode.addEventListener("click", changeMode);
 function changeMode() {
-  let bodyBack = document.querySelector(".back_div");
+  let bodyBack = document.querySelector(".background");
   bodyBack.classList.toggle("switch");
 }
