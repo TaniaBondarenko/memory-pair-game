@@ -23,13 +23,13 @@ body {
 }
 
 .back_div.night {
-  background-image: url("/images/dark_bg_moon.png");
+  background-image: url("images/dark_bg_moon.png");
   background-size: cover;
   background-position: center center;
 }
 
 .back_div.night.switch {
-  background-image: url("/images/light_bg_moon.png");
+  background-image: url("images/light_bg_moon.png");
   background-size: cover;
   background-position: center center;
 }
@@ -105,7 +105,7 @@ body {
 }
 
 .back_div.night.switch > .mode {
-  background-image: url("/images/rsz_night.png");
+  background-image: url("images/rsz_night.png");
   background-repeat: round;
   background-color: white;
   box-shadow: 0px 5px 18px 5px rgb(65, 64, 64);
@@ -113,7 +113,7 @@ body {
 }
 
 .back_div.night > .mode {
-  background-image: url("/images/rsz_day.png");
+  background-image: url("images/rsz_day.png");
   background-color: white;
   box-shadow: 0px 5px 18px 5px rgb(65, 64, 64);
   border-radius: 50%;
