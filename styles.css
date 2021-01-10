@@ -24,10 +24,14 @@ body {
 
 .back_div.night {
   background-image: url("/images/dark_bg_moon.png");
+  background-size: cover;
+  background-position: center center;
 }
 
 .back_div.night.switch {
   background-image: url("/images/light_bg_moon.png");
+  background-size: cover;
+  background-position: center center;
 }
 
 .back_div.night.switch > .likeHeader {
@@ -43,6 +47,8 @@ body {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding-left: -50px;
+  text-align: center;
 }
 
 .card_inner {
@@ -88,6 +94,7 @@ body {
 }
 
 .mode {
+  text-align: right;
   width: 50px;
   height: 50px;
   color: white;
@@ -117,4 +124,39 @@ body {
 .mode:active {
   border: 2px solid white;
   outline: 0;
+}
+
+@media screen and (min-width: 450px) and (max-width: 600px) {
+  img {
+    width: 100px;
+    height: 1000px;
+  }
+
+  body {
+    max-width: 600px;
+  }
+
+  .likeHeader {
+    font-size: 30px;
+    margin: -10px auto auto auto;
+  }
+
+  .card_board {
+    margin: 3px auto 0px;
+    width: 450px;
+    height: 450px;
+    padding-left: 0px;
+  }
+
+  .card_inner,
+  .card_face_front,
+  .card_face_back {
+    width: 100px;
+    height: 100px;
+  }
+
+  .mode {
+    width: 35px;
+    height: 35px;
+  }
 }
