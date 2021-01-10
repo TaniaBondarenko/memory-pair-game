@@ -10,7 +10,7 @@ img {
 
 body {
   max-width: 100%;
-  width: 1500px;
+  width: 2200px;
   min-height: 100vh;
 }
 
@@ -127,6 +127,35 @@ body {
   outline: 0;
 }
 
+@media screen and (min-width: 300px) and (max-width: 449px) {
+  img {
+    width: 70px;
+    height: 70px;
+  }
+
+  body {
+    max-width: 100%;
+    width: 449px;
+  }
+
+  .likeHeader {
+    font-size: 25px;
+  }
+
+  .card_board {
+    width: 300px;
+    height: 300px;
+    padding-left: 0px;
+  }
+
+  .card_inner,
+  .card_face_front,
+  .card_face_back {
+    width: 70px;
+    height: 70px;
+  }
+}
+
 @media screen and (min-width: 450px) and (max-width: 600px) {
   img {
     width: 100px;
@@ -134,7 +163,8 @@ body {
   }
 
   body {
-    max-width: 600px;
+    max-width: 100%;
+    width: 600px;
   }
 
   .likeHeader {
