@@ -9,7 +9,8 @@ img {
 }
 
 body {
-  width: 100%;
+  max-width: 100%;
+  width: 1500px;
   min-height: 100vh;
 }
 
@@ -129,7 +130,7 @@ body {
 @media screen and (min-width: 450px) and (max-width: 600px) {
   img {
     width: 100px;
-    height: 1000px;
+    height: 100px;
   }
 
   body {
