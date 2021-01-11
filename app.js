@@ -89,8 +89,8 @@ function isMatch() {
 
 function showImg() {
   cardsFlipped.forEach(card => {
-    card.classList.add("is-shown");
     card.classList.remove("is-flipped");
+     card.classList.add("is-shown");
   });
   cardsFlipped = [];
 };
