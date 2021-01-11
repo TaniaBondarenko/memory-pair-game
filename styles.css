@@ -53,6 +53,7 @@ body {
   flex-wrap: wrap;
   padding-left: -50px;
   text-align: center;
+  padding-top: 50px;
 }
 
 .card_inner {
@@ -70,8 +71,8 @@ body {
   pointer-events: none;
 }
 
-.card_face_front,
-.card_face_back {
+.card_front,
+.card_back {
   position: absolute;
   width: 135px;
   height: 135px;
@@ -82,11 +83,11 @@ body {
   box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
 }
 
-.card_face_front {
+.card_front {
   position: relative;
 }
 
-.card_face_back {
+.card_back {
   transform: rotateY(180deg);
   position: absolute;
   left: 0;
@@ -160,8 +161,8 @@ body {
   }
 
   .card_inner,
-  .card_face_front,
-  .card_face_back {
+  .card_front,
+  .card_back {
     width: 70px;
     height: 70px;
   }
@@ -188,11 +189,12 @@ body {
     width: 450px;
     height: 450px;
     padding-left: 0px;
+    justify-content: space-around;
   }
 
   .card_inner,
-  .card_face_front,
-  .card_face_back {
+  .card_front,
+  .card_back {
     width: 100px;
     height: 100px;
   }
