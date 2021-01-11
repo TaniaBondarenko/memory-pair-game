@@ -18,10 +18,11 @@ const CARDS_BACK_ARR = [
 ];
         
 const CARDS_LENGTH = 16;
-const DELAY1 = 1600;
-const DELAY2 = 800;
-const DELAY3 = 400;
+const DELAY = 1600;
+const DELAY_REMOVE_FLIP = 800;
+const DELAY_SHOW_CARD = 400;
 const FRONT_CARD_PATH = '<img src="images/front_card.png" class="card_front" alt=" "></img>';
+const CARD_BOARD = document.querySelector(".card_board");
 let cardsFlipped;
 let pairsOpened;
 let numOfAttempts;
@@ -31,7 +32,6 @@ window.addEventListener("load", createBoard);
 function createBoard() {
   resetVariables();
   shuffle(CARDS_BACK_ARR);
-  const CARD_BOARD = document.querySelector(".card_board");
   for (let i = 0; i < CARDS_LENGTH; i++) {
     let cardInner = document.createElement("div");
     cardInner.setAttribute("class", "card_inner");
@@ -58,19 +58,17 @@ function shuffle(arr) {
 };
 
 setTimeout(() => {
-    const CARDS = Array.from(document.querySelectorAll(".card_inner"));
-    CARDS.forEach(card => card.addEventListener('click', flipCard));
-}, DELAY1);
+    CARD_BOARD.addEventListener('click', flipCard);
+}, DELAY);
 
-function flipCard(e) {
-  const CARD_INNER = e.target.parentElement;
-  CARD_INNER.classList.add('is-flipped');
-  cardsFlipped.push(CARD_INNER); 
+function flipCard({ target }) {
+  const cardInner = target.parentElement;
+  if (!target.className === "card_inner") return;
+  cardInner.classList.add('is-flipped');
+  cardsFlipped.push(cardInner); 
   if (cardsFlipped.length === 2) {
     isMatch();
-  } else {
-    cardsFlipped;
-  };
+  } 
 };
 
 function isMatch() {
@@ -78,11 +76,11 @@ function isMatch() {
   let firstCard = cardsFlipped[0].lastElementChild.getAttribute("src");
   let secondCard = cardsFlipped[1].lastElementChild.getAttribute("src");
   if (firstCard === secondCard && cardsFlipped[0] != cardsFlipped[1]) {
-    setTimeout(showImg, DELAY3); 
+    setTimeout(showImg, DELAY_SHOW_CARD); 
     pairsOpened++;
   } 
   else {
-    setTimeout(removeFlip, DELAY2);
+    setTimeout(removeFlip, DELAY_REMOVE_FLIP);
   }
   wonGame();
 };
@@ -106,10 +104,8 @@ function wonGame() {
   if (pairsOpened === CARDS_LENGTH / 2) {
     setTimeout(() => {
       askPlayer();
-    }, DELAY1);
-  } else {
-    return;
-  }
+    }, DELAY);
+   }
 };
 
 function askPlayer() {
@@ -126,6 +122,5 @@ let mode = document.querySelector(".mode");
 mode.addEventListener("click", changeMode);
 
 function changeMode() {
-  let bodyBack = document.querySelector(".background");
-  bodyBack.classList.toggle("switch");
+  document.querySelector(".background").classList.toggle("switch");
 };
