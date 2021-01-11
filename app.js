@@ -23,7 +23,10 @@ const DELAY_REMOVE_FLIP = 800;
 const DELAY_SHOW_CARD = 400;
 const FRONT_CARD_PATH = '<img src="images/front_card.png" class="card_front" alt=" "></img>';
 const CARD_BOARD = document.querySelector(".card_board");
+let cards;
 let cardsFlipped;
+let firstCard;
+let secondCard;
 let pairsOpened;
 let numOfAttempts;
 
@@ -38,10 +41,11 @@ function createBoard() {
     cardInner.innerHTML = `${FRONT_CARD_PATH} <img src="${CARDS_BACK_ARR[i]}" class="card_back" alt=" ">`;
     CARD_BOARD.appendChild(cardInner);
   }
+  cards = Array.from(document.querySelectorAll(".card_inner"));
 };
 
 function resetVariables() {
-  cardsFlipped = [];
+  cardsFlipped = [firstCard,secondCard];
   pairsOpened = 0;
   numOfAttempts = 0;
 };
@@ -61,21 +65,36 @@ setTimeout(() => {
     CARD_BOARD.addEventListener('click', flipCard);
 }, DELAY);
 
+let isFlipped = false;
+let numOpenCards = 0;
+
 function flipCard({ target }) {
   const cardInner = target.parentElement;
   if (!target.className === "card_inner") return;
   cardInner.classList.add('is-flipped');
-  cardsFlipped.push(cardInner); 
-  if (cardsFlipped.length === 2) {
+  if (!isFlipped) {
+    firstCard = cardInner;
+    isFlipped = true;
+    numOpenCards++;
+  } else {
+    secondCard = cardInner;
+    isFlipped = false;
+    numOpenCards++;
+  }
+  if (numOpenCards===2) {
     isMatch();
-  } 
+    numOpenCards = 0;
+  }
+  else {
+    return;
+  }
 };
 
 function isMatch() {
   numOfAttempts++;
-  let firstCard = cardsFlipped[0].lastElementChild.getAttribute("src");
-  let secondCard = cardsFlipped[1].lastElementChild.getAttribute("src");
-  if (firstCard === secondCard && cardsFlipped[0] != cardsFlipped[1]) {
+  let firstSrc=firstCard.lastElementChild.getAttribute("src");
+  let secondSrc=secondCard.lastElementChild.getAttribute("src");
+  if (firstSrc === secondSrc && firstCard != secondCard) {
     setTimeout(showImg, DELAY_SHOW_CARD); 
     pairsOpened++;
   } 
@@ -86,15 +105,14 @@ function isMatch() {
 };
 
 function showImg() {
-  cardsFlipped.forEach(card => {
-    card.classList.remove("is-flipped");
-     card.classList.add("is-shown");
-  });
+  removeFlip();
+  firstCard.classList.add("is-hidden");
+  secondCard.classList.add("is-hidden");
   cardsFlipped = [];
 };
 
 function removeFlip() {
-  cardsFlipped.forEach(card => {
+  cards.forEach(card => {
     card.classList.remove("is-flipped");
   });
   cardsFlipped = [];

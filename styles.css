@@ -20,6 +20,7 @@ body {
   color: white;
   text-align: center;
   margin: -48px auto auto auto;
+  padding-bottom: 20px;
 }
 
 .background.night {
@@ -53,7 +54,6 @@ body {
   flex-wrap: wrap;
   padding-left: -50px;
   text-align: center;
-  padding-top: 50px;
 }
 
 .card_inner {
@@ -93,7 +93,7 @@ body {
   left: 0;
 }
 
-.card_inner.is-shown {
+.card_inner.is-hidden {
   opacity: 0;
   pointer-events: none;
 }
