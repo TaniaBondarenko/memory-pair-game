@@ -22,6 +22,8 @@ const DELAY = 1600;
 const DELAY_REMOVE_FLIP = 800;
 const DELAY_HIDE_CARD = 600;
 const CARD_BOARD = document.querySelector(".card_board");
+let isFlipped = false;
+let numOpenCards = 0;
 let cards;
 let firstCard;
 let secondCard;
@@ -41,6 +43,7 @@ function createBoard() {
     CARD_BOARD.appendChild(cardInner);
   }
   cards = Array.from(document.querySelectorAll(".card_inner"));
+  letGame();
 };
 
 function resetVariables() {
@@ -59,16 +62,16 @@ function shuffle(arr) {
   };
 };
 
-
-    CARD_BOARD.addEventListener('click', flipCard);
-
-
-let isFlipped = false;
-let numOpenCards = 0;
+function letGame(){
+setTimeout(() => {
+  CARD_BOARD.addEventListener('click', flipCard);
+}, DELAY);
+};
 
 function flipCard({ target }) {
   const cardInner = target.parentElement;
   if (!target.className === "card_inner") return;
+  if (target.className==="card_board") return;
   if (!cardInner.classList.contains("is-flipped")) {
     cardInner.classList.add('is-flipped');
     if (!isFlipped) {
@@ -81,6 +84,7 @@ function flipCard({ target }) {
       numOpenCards++;
     }
     if (numOpenCards === 2) {
+      blockBoard();
       isMatch();
       numOpenCards = 0;
     }
@@ -95,13 +99,20 @@ function isMatch() {
   let firstSrc=firstCard.lastElementChild.getAttribute("src");
   let secondSrc=secondCard.lastElementChild.getAttribute("src");
   if (firstSrc === secondSrc && firstCard != secondCard) {
-    setTimeout(hideImg, DELAY_HIDE_CARD); 
+    setTimeout(hideImg, DELAY_HIDE_CARD);
+    console.log("hide");
     pairsOpened++;
-  } 
-  else {
+  } else if (firstCard === document.querySelector("body.is-flipped")) {
+    !removeFlip();
+    console.log("the same");
+  } else {
     setTimeout(removeFlip, DELAY_REMOVE_FLIP);
+    console.log("remove");
   }
-  wonGame();
+  letGame();
+  if (pairsOpened === CARDS_LENGTH / 2) {
+    wonGame();
+  }
 };
 
 function hideImg() {
@@ -117,11 +128,9 @@ function removeFlip() {
 };
 
 function wonGame() {
-  if (pairsOpened === CARDS_LENGTH / 2) {
     setTimeout(() => {
       askPlayer();
     }, DELAY);
-   }
 };
 
 function askPlayer() {
@@ -129,8 +138,7 @@ function askPlayer() {
         document.location.reload();
       } else {
         resetVariables();
-        window.removeEventListener("load", createBoard);
-        mode.removeEventListener("click", changeMode);
+        blockBoard();
       };
 };
 
@@ -140,3 +148,7 @@ mode.addEventListener("click", changeMode);
 function changeMode() {
   document.querySelector(".background").classList.toggle("switch");
 };
+
+function blockBoard() {
+  CARD_BOARD.removeEventListener("click", flipCard);
+}
