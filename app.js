@@ -18,8 +18,7 @@ const CARDS_BACK_ARR = [
 ];
         
 const CARDS_LENGTH = 16;
-const DELAY = 1000;
-const DELAY_REMOVE_FLIP = 800;
+const DELAY = 800;
 const DELAY_HIDE_CARD = 600;
 const CARD_BOARD = document.querySelector(".card_board");
 let isFlipped = false;
@@ -68,6 +67,10 @@ setTimeout(() => {
 }, DELAY);
 };
 
+function blockBoard() {
+  CARD_BOARD.removeEventListener("click", flipCard);
+}
+
 function flipCard({ target }) {
   const cardInner = target.parentElement;
   if (!target.className === "card_inner") return;
@@ -102,12 +105,10 @@ function isMatch() {
     setTimeout(hideImg, DELAY_HIDE_CARD);
     pairsOpened++;
   } else {
-    setTimeout(removeFlip, DELAY_REMOVE_FLIP);
+   setTimeout(removeFlip, DELAY);
   }
-
   setTimeout(letGame, DELAY);
     
-  
   if (pairsOpened === CARDS_LENGTH / 2) {
     wonGame();
   }
@@ -140,13 +141,9 @@ function askPlayer() {
       };
 };
 
-let mode = document.querySelector(".mode");
+const mode = document.querySelector(".mode");
 mode.addEventListener("click", changeMode);
 
 function changeMode() {
   document.querySelector(".background").classList.toggle("switch");
 };
-
-function blockBoard() {
-  CARD_BOARD.removeEventListener("click", flipCard);
-}
