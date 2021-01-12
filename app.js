@@ -18,7 +18,7 @@ const CARDS_BACK_ARR = [
 ];
         
 const CARDS_LENGTH = 16;
-const DELAY = 1600;
+const DELAY = 1000;
 const DELAY_REMOVE_FLIP = 800;
 const DELAY_HIDE_CARD = 600;
 const CARD_BOARD = document.querySelector(".card_board");
@@ -100,16 +100,14 @@ function isMatch() {
   let secondSrc=secondCard.lastElementChild.getAttribute("src");
   if (firstSrc === secondSrc && firstCard != secondCard) {
     setTimeout(hideImg, DELAY_HIDE_CARD);
-    console.log("hide");
     pairsOpened++;
-  } else if (firstCard === document.querySelector("body.is-flipped")) {
-    !removeFlip();
-    console.log("the same");
   } else {
     setTimeout(removeFlip, DELAY_REMOVE_FLIP);
-    console.log("remove");
   }
-  letGame();
+
+  setTimeout(letGame, DELAY);
+    
+  
   if (pairsOpened === CARDS_LENGTH / 2) {
     wonGame();
   }
